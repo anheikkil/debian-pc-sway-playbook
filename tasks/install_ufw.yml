@@ -1,0 +1,30 @@
+---
+- name: Install ufw
+  become: true
+  ansible.builtin.apt:
+    name: ufw
+    state: present
+
+- name: Add default ufw rule for incoming connections
+  become: true
+  ansible.builtin.command: ufw default deny incoming
+
+- name: Add default ufw rule for outgoing connections
+  become: true
+  ansible.builtin.command: ufw default allow outgoing
+
+- name: Enable ufw
+  become: true
+  ansible.builtin.command: ufw enable
+
+# - name:  Start ufw
+#   become: true
+#   ansible.builtin.service:
+#     name: ufw
+#     state: reloaded
+
+# - name: Enable ufw
+#   become: true
+#   ansible.builtin.service:
+#     name: ufw
+#     enabled: true

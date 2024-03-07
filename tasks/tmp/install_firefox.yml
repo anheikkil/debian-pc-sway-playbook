@@ -1,0 +1,24 @@
+---
+- name: Install firefox package (Alpine Linux)
+  tags: install,web-browser
+  become: true
+  community.general.apk:
+    name: firefox
+    state: present
+  when: ansible_distribution == "Alpine"
+
+- name: Install firefox-esr package (Debian)
+  tags: install,web-browser
+  become: true
+  ansible.builtin.apt:
+    name: firefox-esr
+    state: present
+  when: ansible_distribution == "Debian"
+
+- name: Install firefox package (Pop!_OS)
+  tags: install,web-browser
+  become: true
+  ansible.builtin.apt:
+    name: firefox
+    state: present
+  when: ansible_distribution in ["Pop!_OS"]

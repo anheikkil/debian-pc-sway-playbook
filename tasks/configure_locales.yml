@@ -1,0 +1,31 @@
+---
+- name: Ensure that locales exist
+  locale_gen:
+    name:
+      - en_US.UTF-8
+      - fi_FI.UTF-8
+    state: present
+
+# - name: Ensure that en_US.UTF-8 locale exists
+#   locale_gen:
+#     name: en_US.UTF-8
+#     state: present
+
+# - name: Ensure that fi_FI.UTF-8 locale exists
+#   locale_gen:
+#     name: fi_FI.UTF-8
+#     state: present
+
+- name: Set default locale
+  ansible.builtin.debconf:
+    name: locales
+    question: locales/default_environment_locale
+    value: en_US.UTF-8
+    vtype: select
+
+- name: Set to generate locales
+  ansible.builtin.debconf:
+    name: locales
+    question: locales/locales_to_be_generated
+    value: en_US.UTF-8 UTF-8, fi_FI.UTF-8 UTF-8
+    vtype: multiselect

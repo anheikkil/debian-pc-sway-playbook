@@ -1,0 +1,8 @@
+---
+- name: Install steam flatpak # for current user
+  become: true
+#  become: false
+  community.general.flatpak:
+    name: com.valvesoftware.Steam
+    state: present
+#    method: user

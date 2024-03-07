@@ -1,0 +1,33 @@
+---
+- name: Accept steam license
+  ansible.builtin.debconf:
+    name: steam
+    question: steam/question
+    value: 'I AGREE'
+    vtype: select
+
+- name: Install steam package
+  become: true
+  ansible.builtin.apt:
+    name: steam
+    state: present
+
+- name: Accept steamcmd license
+  ansible.builtin.debconf:
+    name: steamcmd
+    question: steam/question
+    value: 'I AGREE'
+    vtype: select
+
+- name: Set steamcmd license
+  ansible.builtin.debconf:
+    name: steamcmd
+    question: steam/license
+    value: ''
+    vtype: note
+
+- name: Install steam and steamcmd
+  become: true
+  ansible.builtin.apt:
+    name: steamcmd
+    state: present

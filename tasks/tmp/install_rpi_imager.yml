@@ -1,0 +1,7 @@
+---
+- name: Install rpi-imager package (Debian)
+  tags: install,image-writer
+  become: true
+  ansible.builtin.apt:
+    name: rpi-imager
+  when: ansible_distribution == "Debian"

@@ -1,0 +1,8 @@
+---
+- name: Install qutebrowser flatpak
+  become: true
+#  become: false
+  community.general.flatpak:
+    name: org.qutebrowser.qutebrowser
+    state: present
+#    method: user

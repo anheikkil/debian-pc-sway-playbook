@@ -1,0 +1,400 @@
+---
+# default playbook for ansible-pull
+- name: Configure localhost
+  hosts: localhost
+  become: true
+  vars:
+    install_alacritty: true
+
+  pre_tasks:
+    - name: Include variables
+      ansible.builtin.import_tasks: tasks/include_vars.yml
+
+### WIP
+#    - name: Configure locales
+#      ansible.builtin.import_tasks: tasks/configure_locales.yml
+
+#    - name: Configure package sources
+#      ansible.builtin.import_tasks: tasks/configure_package_sources.yml
+
+    - name: Update package cache
+      become: true
+      ansible.builtin.apt:
+        update_cache: true
+
+  tasks:
+    - name: Install system packages
+      become: true
+      ansible.builtin.apt:
+        name:
+          - acpi
+          - acpi
+          - acpid
+          - acpid
+          - avahi-daemon
+          - bluez
+          - cups
+          - f2fs-tools
+          - gnupg
+          - lvm2
+          - network-manager
+          - nfs-common
+#          - pop-pipewire # uncomment for testing with pop!_os
+          - pipewire-audio
+          - policykit-1
+          - python3
+          - system-config-printer-common
+          - system-config-printer-udev
+          - thin-provisioning-tools
+          - xz-utils
+          - zip
+#          - colord
+#          - unattended-upgrades
+        state: present
+
+#     - name: Install tlp
+#       become: true
+#       ansible.builtin.apt:
+#         name:
+#           - tlp
+#           - tlp-drw
+#         state: present
+
+    - name: Install and configure ufw
+      ansible.builtin.import_tasks: tasks/install_ufw.yml
+
+    - name: Install and configure flatpak
+      ansible.builtin.import_tasks: tasks/install_flatpak.yml
+
+#     - name: Install display manager (lightdm) # seatd
+#       become: true
+#       ansible.builtin.apt:
+#         name:
+#           - lightdm
+#           - lightdm-settings
+#           - slick-greeter
+# #          - light-locker
+#         state: present
+
+    - name: Install sway window manager
+      become: true
+      ansible.builtin.apt:
+        name:
+          - adwaita-icon-theme
+          - blueman
+          - brightnessctl # light
+          - dconf-cli
+          - dunst # mako-notifier sway-notification-center
+          - fonts-hack
+          - foot # alacritty
+          - grim
+          - gvfs-backends
+          - gvfs-fuse
+          - jq
+          - libnotify-bin
+          - pulsemixer
+          - slurp
+          - sound-theme-freedesktop
+          - sway
+          - swaybg
+          - swayidle
+          - swaylock
+          - waybar
+          - wl-clipboard
+          - wofi # rofi tofi
+          - xdg-desktop-portal-gtk
+          - xdg-desktop-portal-wlr
+          - xwayland
+#          - gnome-keyring
+#          - libpam-gnome-keyring
+#          - pinentry-curses
+#          - pinentry-gnome3
+#          - policykit-1-gnome
+#          - wlogout
+        state: present
+
+    - name: Install image viewer (swayimg)
+      become: true
+      ansible.builtin.apt:
+        name: swayimg # imv sxiv
+        state: present
+
+    - name: Install pdf-viewer (zathura)
+      become: true
+      ansible.builtin.apt:
+        name: zathura,zathura-pdf-poppler
+        state: present
+
+    - name: Install password manager (pass)
+      become: true
+      ansible.builtin.apt:
+        name:
+          - gnupg
+          - gpg-agent
+          - pass
+          - pass-extension-otp
+        state: present
+
+    - name: Install music player (cmus)
+      become: true
+      ansible.builtin.apt:
+        name:
+          - cmus # moc
+          - cmus-plugin-ffmpeg
+        state: present
+
+    - name: Install video player (mpv, yt-dlp)
+      become: true
+      ansible.builtin.apt:
+        name:
+          - mpv
+          - yt-dlp
+        state: present
+
+    - name: Install web-browsers (firefox-esr, lynx, qutebrowser)
+      become: true
+      ansible.builtin.apt:
+        name:
+#          - firefox # uncomment for testing with pop!_os
+          - firefox-esr
+          - libjs-pdf
+          - lynx
+          - qutebrowser
+#          - chromium
+        state: present
+
+#     - name: Install web-browsers flatpaks (firefox-esr, lynx, qutebrowser)
+#       become: true
+#       community.general.flatpak:
+#         name: org.chromium.Chromium
+#         name: org.mozilla.firefox
+#         name: org.qutebrowser.qutebrowser
+#         state: present
+
+    - name: Install calendar and contact manager applications (khal, hard) # terminal caldav client, terminal vcard client
+      become: true
+      ansible.builtin.apt:
+        name: khal,khard
+        state: present
+
+    - name: Install email client (neomutt)
+      become: true
+      ansible.builtin.apt:
+        name:
+          - ca-certificates
+          - gnupg
+          - gpg-agent
+          - lynx
+          - neomutt # mutt
+          - urlscan
+        state: present
+
+    - name: Install rss/atom feed reader (newsboat)
+      become: true
+      ansible.builtin.apt:
+        name:
+          - lynx
+          - newsboat
+          - urlscan
+        state: present
+
+    - name: Install irc/xmpp client (irssi, irssi-xmpp)
+      become: true
+      ansible.builtin.apt:
+        name: 
+          - irssi
+          - irssi-xmpp # comment for testing with pop!_os
+        state: present
+
+    - name: Install bittorrent client (transmission)
+      become: true
+      ansible.builtin.apt:
+        name: 
+          - transmission
+          - transmission-cli
+          - transmission-gtk
+        state: present
+
+    - name: Install thunar file manager
+      become: true
+      ansible.builtin.apt:
+        name:
+          - thunar
+          - thunar-media-tags-plugin
+        state: present
+
+    - name: Install administrative tools
+      become: true
+      ansible.builtin.apt:
+        name:
+          - adb
+          - avahi-ui-tools # comment for testing with pop!_os
+          - clamav
+          - coreutils
+          - curl
+          - dvd+rw-tools
+          - fastboot
+          - fwupd
+          - gdisk
+          - git
+          - git-annex
+          - git-crypt
+          - gnupg
+          - htop
+#          - ranger # uncomment for testing with pop!_os
+          - lf # uncomment for testing with pop!_os
+          - lm-sensors
+          - par2
+          - pwgen
+          - rclone
+          - rsync
+          - smartmontools
+          - wget
+#          - clonezilla
+#          - firejail
+#          - stow
+#          - syncthing
+        state: present
+
+    - name: Install fonts and groff file format
+      become: true
+      ansible.builtin.apt:
+        name:
+          - fonts-sil-charis
+          - groff
+#          - ghostscript
+#          - pandoc
+        state: present
+
+    - name: Install obsidian flatpak
+      become: true
+      community.general.flatpak:
+        name: md.obsidian.Obsidian
+        state: present
+
+    - name: Install graphics utilities
+      become: true
+      ansible.builtin.apt:
+        name:
+          - gimp
+          - gimp-dds
+          - gimp-normalmap
+          - graphicsmagick
+          - graphicsmagick-imagemagick-compat
+#          - simple-scan
+        state: present
+
+    - name: Install rpi-imager flatpak
+      become: true
+      community.general.flatpak:
+        name: org.raspberrypi.rpi-imager
+        state: present
+
+    - name: Add i386 architecture
+      become: true
+      command: dpkg --add-architecture i386
+
+    - name: Install gpu driver packages
+      become: true
+      ansible.builtin.apt:
+        name:
+          - libgl1-mesa-dri
+          - libglx-mesa0
+          - mesa-vulkan-drivers
+          - xserver-xorg-video-all
+#          - firmware-amd-graphics
+        state: present
+
+    - name: Install gamemode, mangohud, vkbasalt, wine and winetricks
+      become: true
+      ansible.builtin.apt:
+        name:
+          - gamemode
+          - mangohud
+          - vkbasalt
+          - wine
+          - winetricks
+          - mangohudctl # comment for testing with pop!_os
+        state: present
+
+    - name: Install and configure lutris
+      ansible.builtin.import_tasks: tasks/install_lutris.yml
+
+    - name: Install and configure steam
+      ansible.builtin.import_tasks: tasks/install_steam.yml
+
+    - name: Install multimedia tools and encoders
+      become: true
+      ansible.builtin.apt:
+        name:
+          - ffmpeg
+          - flac
+          - handbrake
+          - handbrake-cli
+          - libdvd-pkg
+          - libdvdnav4
+          - libdvdread8
+          - loudgain # rsgain (trixie)
+          - mediainfo
+          - mkvtoolnix
+          - opus-tools
+          - rename-flac
+          - sox
+          - x264
+#          - flactag
+#          - whipper # cyanrip (trixie)
+        state: present
+
+    - name: Configure libdvd-pkg package
+      become: true
+      command: dpkg-reconfigure libdvd-pkg
+
+    - name: Install MakeMKV flatpak
+      become: true
+      community.general.flatpak:
+        name: com.makemkv.MakeMKV
+        state: present
+
+    - name: Install qemu host packages
+      become: true
+      ansible.builtin.apt:
+        name:
+          - bridge-utils
+          - libvirt-clients
+          - libvirt-daemon-system
+          - qemu-kvm
+          - virt-manager
+#          - virt-viewer
+        state: present
+
+    - name: Install development tools
+      become: true
+      ansible.builtin.apt:
+        name:
+          - ansible-lint
+          - git
+          - git-crypt
+          - gnupg
+          - gpg-agent
+          - graphicsmagick
+          - graphicsmagick-imagemagick-compat
+          - neovim
+          - pylint
+          - sassc
+          - shellcheck
+          - tig
+          - yamllint
+#          - jekyll
+#          - minify
+        state: present
+
+  post_tasks:
+    - name: Remove unused package dependencies
+      become: true
+      ansible.builtin.apt:
+        autoremove: true
+
+    - name: Clear out package cache
+      become: true
+      ansible.builtin.apt:
+        clean: true

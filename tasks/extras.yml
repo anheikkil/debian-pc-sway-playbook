@@ -1,0 +1,121 @@
+---
+# tasks file for debian_pc_playbook
+- name: Install music player (mpd, ncmpcpp)
+  become: true
+  ansible.builtin.apt:
+    name: mpd,ncmpcpp
+    state: present
+
+- name: Accept ttf-mscorefonts license
+  ansible.builtin.debconf:
+    name: ttf-mscorefonts-installer
+    question: msttcorefonts/accepted-mscorefonts-eula
+    vtype: boolean
+    value: true
+
+- name: Install libreoffice (libreoffice-calc, libreoffice-impress, libreoffice-writer, mscorefonts)
+  become: true
+  ansible.builtin.apt:
+    name:
+      - libreoffice-calc
+      - libreoffice-gnome
+      - libreoffice-gtk3
+      - libreoffice-help-en-us
+      - libreoffice-help-fi
+      - libreoffice-impress
+      - libreoffice-l10n-fi
+      - libreoffice-lightproof-en
+      - libreoffice-style-sifr
+      - libreoffice-voikko
+      - libreoffice-writer
+      - ttf-mscorefonts-installer
+    state: present
+    install_recommends: false
+
+- name: Install gimp flatpak
+  become: true
+  community.general.flatpak:
+    name: org.gimp.GIMP
+    state: present
+
+- name: Install blender flatpak
+  become: true
+  community.general.flatpak:
+    name: org.blender.Blender
+    state: present
+
+- name: Download obsidian deb package
+  become: true
+  ansible.builtin.get_url:
+    url: https://github.com/obsidianmd/obsidian-releases/releases/download/v1.5.8/obsidian_1.5.8_amd64.deb
+    dest: /tmp/obsidian_1.5.8_amd64.deb
+    owner: root
+    group: root
+    mode: 0644
+    checksum: sha256:46675f643a24fb94d763eb03001090d3f500f1c6b3a354d11639f23ee268489b
+
+- name: Install obsidian
+  become: true
+  ansible.builtin.apt:
+    deb: /tmp/obsidian_1.5.8_amd64.deb
+    state: present
+
+- name: Download obsidian appimage
+  become: true
+  ansible.builtin.get_url:
+    url: https://github.com/obsidianmd/obsidian-releases/releases/download/v1.5.8/Obsidian-1.5.8.AppImage
+    dest: /usr/bin/obsidian
+    owner: root
+    group: root
+    mode: 0655
+    checksum: sha256:41bf02e53cff52589847fd652bf683571833b8d6b096138d7077909789d59688
+
+- name: Download obsidian appimage (arch64)
+  become: true
+  ansible.builtin.get_url:
+    url: https://github.com/obsidianmd/obsidian-releases/releases/download/v1.5.8/Obsidian-1.5.8-arm64.AppImage
+    dest: /usr/bin/obsidian
+    owner: root
+    group: root
+    mode: 0655
+    checksum: sha256:2472fb8824acb720dac3a6ae4ca1ed8f8bbd4ba66362ccc5af8a17d5a08570f9
+
+- name: Install mesa opencl package
+  become: true
+  ansible.builtin.apt:
+    name: mesa-opencl-icd
+    state: present
+
+- name: Install steam flatpak
+  become: true
+  community.general.flatpak:
+    name: com.valvesoftware.Steam
+    state: present
+
+- name: Install lutris flatpak
+  become: true
+  community.general.flatpak:
+    name: net.lutris.Lutris
+    state: present
+
+- name: Install libdvd-pkg package
+  become: true
+  ansible.builtin.apt:
+    name: libdvd-pkg
+    state: present
+
+- name: Configure libdvd-pkg package
+  become: true
+  command: dpkg-reconfigure libdvd-pkg
+
+- name: Install handbrake flatpak
+  become: true
+  community.general.flatpak:
+    name: fr.handbrake.ghb
+    state: present
+
+- name: Install vnc server for wayland (wayvnc)
+  become: true
+  ansible.builtin.apt:
+    name: wayvnc
+    state: present

@@ -1,0 +1,11 @@
+# /etc/apt/sources.list
+# Created by ansible on {{ template_run_date }}
+
+deb http://deb.debian.org/debian {{ ansible_distribution_release }} {{ apt_components[ansible_distribution_release] }}
+deb-src http://deb.debian.org/debian {{ ansible_distribution_release }} {{ apt_components[ansible_distribution_release] }}
+
+deb http://deb.debian.org/debian-security/ {{ ansible_distribution_release }}-security {{ apt_components[ansible_distribution_release] }}
+deb-src http://deb.debian.org/debian-security/ {{ ansible_distribution_release }}-security {{ apt_components[ansible_distribution_release] }}
+
+deb http://deb.debian.org/debian {{ ansible_distribution_release }}-updates {{ apt_components[ansible_distribution_release] }}
+deb-src http://deb.debian.org/debian {{ ansible_distribution_release }}-updates {{ apt_components[ansible_distribution_release] }}

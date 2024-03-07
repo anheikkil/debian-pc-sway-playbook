@@ -1,0 +1,16 @@
+---
+- name: Install transmission packages (Alpine)
+  tags: install,bittorrent-client
+  become: true
+  community.general.apk:
+    name: transmission,transmission-gtk,transmission-cli # transmission-daemon
+    state: present
+  when: ansible_distribution == "Alpine"
+
+- name: Install transmission packages (Debian, Pop!_OS)
+  tags: install,bittorrent-client
+  become: true
+  ansible.builtin.apt:
+    name: transmission,transmission-gtk,transmission-cli # transmission-daemon
+    state: present
+  when: ansible_distribution in ["Debian", "Pop!_OS"]

@@ -1,0 +1,15 @@
+---
+# tasks file for linux_pc_playbook
+- name: Install font packages (Debian)
+  ansible.builtin.apt:
+    name: fonts-hack
+    state: present
+    update_cache: true
+  when: ansible_distribution in ["Debian", "Pop!_OS"]
+
+- name: Install font packages (Alpine)
+  community.general.apk:
+    name: font-hack
+    state: present
+    update_cache: true
+  when: ansible_distribution == "Alpine"

@@ -1,0 +1,16 @@
+---
+- name: Install ranger package (Alpine Linux)
+  tags: install,file-manager,terminal
+  become: true
+  community.general.apk:
+    name: ranger
+    state: present
+  when: ansible_distribution == "Alpine"
+
+- name: Install ranger package (Debian, Pop!_OS)
+  tags: install,file-manager,terminal
+  become: true
+  ansible.builtin.apt:
+    name: ranger
+    state: present
+  when: ansible_distribution in ["Debian", "Pop!_OS"]

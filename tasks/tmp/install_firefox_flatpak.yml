@@ -1,0 +1,8 @@
+---
+- name: Install firefox flatpak
+  become: true
+#  become: false
+  community.general.flatpak:
+    name: org.mozilla.firefox
+    state: present
+#    method: user

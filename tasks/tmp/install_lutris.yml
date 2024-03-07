@@ -1,0 +1,28 @@
+---
+- name: Install wine package (Debian, Pop!_OS)
+  tags: install,compatibility-layer
+  become: true
+  ansible.builtin.apt:
+    name: wine
+    state: present
+  when: ansible_distribution in ["Debian", "Pop!_OS"]
+
+- name: Download lutris deb package with checksum (Debian, Pop!_OS)
+  tags: download,game-manager
+  become: true
+  ansible.builtin.get_url:
+    url: https://download.opensuse.org/repositories/home:/strycore/Debian_12/all/lutris_0.5.16_all.deb
+    dest: /tmp/lutris_0.5.16_all.deb
+    owner: root
+    group: root
+    mode: 0644
+    checksum: sha256:26824ecfc10daa0304f64c65da1ef2f70a9641b34bd5310542561753f67da9a9
+  when: ansible_distribution in ["Debian", "Pop!_OS"]
+
+- name: Install lutris deb package (Debian, Pop!_OS)
+  tags: install,game-manager
+  become: true
+  ansible.builtin.apt:
+    deb: /tmp/lutris_0.5.16_all.deb
+    state: present
+  when: ansible_distribution in ["Debian", "Pop!_OS"]

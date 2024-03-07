@@ -1,0 +1,32 @@
+---
+- name: Install mangohud and vkbasalt packages (Alpine Linux)
+  tags: install,system-monitor,post-processing
+  become: true
+  community.general.apk:
+    name: mangohud,vkbasalt
+    state: present
+  when: ansible_distribution == "Alpine"
+
+- name: Install gamemode, mangohud and vkbasalt packages (Debian, Pop!_OS)
+  tags: install,system-monitor,post-processing
+  become: true
+  ansible.builtin.apt:
+    name: gamemode,mangohud,vkbasalt
+    state: present
+  when: ansible_distribution in ["Debian", "Pop!_OS"]
+
+- name: Install wine package (Alpine Linux)
+  tags: install,compatibility-layer
+  become: true
+  community.general.apk:
+    name: wine
+    state: present
+  when: ansible_distribution == "Alpine"
+
+- name: Install wine package (Debian, Pop!_OS)
+  tags: install,compatibility-layer
+  become: true
+  ansible.builtin.apt:
+    name: wine
+    state: present
+  when: ansible_distribution in ["Debian", "Pop!_OS"]

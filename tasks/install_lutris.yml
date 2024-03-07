@@ -1,0 +1,22 @@
+---
+- name: Download lutris deb package
+  become: true
+  ansible.builtin.get_url:
+    url: https://download.opensuse.org/repositories/home:/strycore/Debian_12/all/lutris_0.5.16_all.deb
+    dest: /tmp/lutris_0.5.16_all.deb
+    owner: root
+    group: root
+    mode: 0644
+    checksum: sha256:26824ecfc10daa0304f64c65da1ef2f70a9641b34bd5310542561753f67da9a9
+
+- name: Install lutris
+  become: true
+  ansible.builtin.apt:
+    deb: /tmp/lutris_0.5.16_all.deb
+    state: present
+
+# - name: Remove lutris deb package
+#   become: true
+#   ansible.builtin.file:
+#     path: /tmp/lutris_0.5.16_all.deb
+#     state: absent

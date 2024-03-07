@@ -1,0 +1,8 @@
+---
+- name: Install rpi-imager flatpak
+  become: true
+#  become: false
+  community.general.flatpak:
+    name: org.raspberrypi.rpi-imager
+    state: present
+#    method: user

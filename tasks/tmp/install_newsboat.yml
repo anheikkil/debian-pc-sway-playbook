@@ -1,0 +1,32 @@
+---
+- name: Install newsboat package (Alpine Linux)
+  tags: install,rss-reader
+  become: true
+  community.general.apk:
+    name: newsboat
+    state: present
+  when: ansible_distribution == "Alpine"
+
+- name: Install urlscan and lynx packages (Alpine Linux)
+  tags: install,web-browser
+  become: true
+  community.general.apk:
+    name: urlscan,lynx
+    state: present
+  when: ansible_distribution == "Alpine"
+
+- name: Install newsboat package (Debian, Pop!_OS)
+  tags: install,rss-reader
+  become: true
+  ansible.builtin.apt:
+    name: newsboat
+    state: present
+  when: ansible_distribution in ["Debian", "Pop!_OS"]
+
+- name: Install urlscan and lynx packages (Debian, Pop!_OS)
+  tags: install,web-browser
+  become: true
+  ansible.builtin.apt:
+    name: urlscan,lynx
+    state: present
+  when: ansible_distribution in ["Debian", "Pop!_OS"]

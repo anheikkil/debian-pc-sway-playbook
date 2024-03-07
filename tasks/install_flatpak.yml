@@ -1,0 +1,27 @@
+---
+- name: Install flatpak package
+  become: true
+  ansible.builtin.apt:
+    name: flatpak
+    state: present
+
+- name: Install xdg-desktop-portal packages
+  become: true
+  ansible.builtin.apt:
+    name: xdg-desktop-portal
+    state: present
+
+- name: Add Flathub repository remote to the system installation
+  become: true
+  community.general.flatpak_remote:
+    name: flathub
+    state: present
+    flatpakrepo_url: "https://dl.flathub.org/repo/flathub.flatpakrepo"
+
+- name: Add Flathub repository remote to the user installation
+  become: false
+  community.general.flatpak_remote:
+    name: flathub
+    state: present
+    flatpakrepo_url: "https://dl.flathub.org/repo/flathub.flatpakrepo"
+    method: user

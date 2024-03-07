@@ -1,0 +1,16 @@
+---
+- name: Install handbrake package (Alpine)
+  tags: install,video-transcoder
+  become: true
+  ansible.builtin.apt:
+    name: handbrake
+    state: present
+  when: ansible_distribution == "Alpine"
+
+- name: Install handbrake handbrake-cli packages (Debian, Pop!_OS)
+  tags: install,video-transcoder
+  become: true
+  ansible.builtin.apt:
+    name: handbrake,handbrake-cli
+    state: present
+  when: ansible_distribution in ["Debian", "Pop!_OS"]

@@ -1,0 +1,16 @@
+---
+- name: Install zathura package (Alpine Linux)
+  tags: install,pdf-viewer
+  become: true
+  community.general.apk:
+    name: zathura
+    state: present
+  when: ansible_distribution == "Alpine"
+
+- name: Install zathura packages (Debian, Pop!_OS)
+  tags: install,pdf-viewer
+  become: true
+  ansible.builtin.apt:
+    name: zathura,zathura-pdf-poppler
+    state: present
+  when: ansible_distribution in ["Debian", "Pop!_OS"]

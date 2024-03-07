@@ -1,0 +1,16 @@
+---
+- name: Install qutebrowser package (Alpine Linux)
+  tags: install,web-browser
+  become: true
+  community.general.apk:
+    name: qutebrowser
+    state: present
+  when: ansible_distribution == "Alpine"
+
+- name: Install qutebrowser and libjs-pdf packages (Debian, Pop!_OS)
+  tags: install,web-browser
+  become: true
+  ansible.builtin.apt:
+    name: qutebrowser,libjs-pdf
+    state: present
+  when: ansible_distribution in ["Debian", "Pop!_OS"]

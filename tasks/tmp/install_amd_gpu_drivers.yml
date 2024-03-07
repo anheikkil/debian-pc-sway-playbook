@@ -1,0 +1,29 @@
+---
+- name: Install AMD driver packages (Debian)
+  tags: install,gpu,opengl,vulkan
+  become: true
+  ansible.builtin.apt:
+    name:
+      - firmware-amd-graphics
+      - libgl1-mesa-dri
+      - libglx-mesa0
+      - mesa-vulkan-drivers
+      - xserver-xorg-video-all
+    state: present
+  when: ansible_distribution == "Debian"
+
+# - name: Install mesa opencl icd package (Debian, Pop!_OS)
+#   tags: install,opencl
+#   become: true
+#   ansible.builtin.apt:
+#     name: mesa-opencl-icd
+#     state: present
+#   when: ansible_distribution in ["Debian", "Pop!_OS"]
+
+- name: Install radeontop package (Debian, Pop!_OS)
+  tags: install,resource-monitor
+  become: true
+  ansible.builtin.apt:
+    name: radeontop
+    state: present
+  when: ansible_distribution in ["Debian", "Pop!_OS"]

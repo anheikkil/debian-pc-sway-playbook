@@ -1,0 +1,13 @@
+---
+- name: Copy apt sources configuration file
+  become: true
+  ansible.builtin.template:
+    src: templates/etc/apt/sources.list.j2
+    dest: /etc/apt/sources.list
+    backup: true
+    owner: root
+    group: root
+    mode: 0644
+  vars:
+    apt_components:
+      bookworm: main contrib non-free non-free-firmware

@@ -1,0 +1,48 @@
+---
+- name: Install neomutt package (Alpine Linux)
+  tags: install,email-client
+  become: true
+  community.general.apk:
+    name: neomutt
+    state: present
+  when: ansible_distribution == "Alpine"
+
+- name: Install urlscan and lynx packages (Alpine Linux)
+  tags: install,web-browser
+  become: true
+  community.general.apk:
+    name: urlscan,lynx
+    state: present
+  when: ansible_distribution == "Alpine"
+
+- name: Install ca-certificates, gnupg and gpg-agent packages (Alpine Linux)
+  tags: install,encryption-program
+  become: true
+  community.general.apk:
+    name: ca-certificates,gnupg,gpg-agent
+    state: present
+  when: ansible_distribution == "Alpine"
+
+- name: Install neomutt package (Debian, Pop!_OS)
+  tags: install,email-client
+  become: true
+  ansible.builtin.apt:
+    name: neomutt
+    state: present
+  when: ansible_distribution in ["Debian", "Pop!_OS"]
+
+- name: Install urlscan and lynx packages (Debian, Pop!_OS)
+  tags: install,web-browser
+  become: true
+  ansible.builtin.apt:
+    name: urlscan,lynx
+    state: present
+  when: ansible_distribution in ["Debian", "Pop!_OS"]
+
+- name: Install ca-certificates, gnupg and gpg-agent packages (Debian, Pop!_OS)
+  tags: install,encryption-program
+  become: true
+  ansible.builtin.apt:
+    name: ca-certificates,gnupg,gpg-agent
+    state: present
+  when: ansible_distribution in ["Debian", "Pop!_OS"]

@@ -1,0 +1,8 @@
+---
+- name: Install lutris flatpak
+  become: true
+#  become: false
+  community.general.flatpak:
+    name: net.lutris.Lutris
+    state: present
+#    method: user

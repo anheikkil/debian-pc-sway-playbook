@@ -1,0 +1,16 @@
+---
+- name: Install lf package (Alpine Linux)
+  tags: install,file-manager,terminal
+  become: true
+  community.general.apk:
+    name: lf
+    state: present
+  when: ansible_distribution == "Alpine"
+
+- name: Install lf package (Debian)
+  tags: install,file-manager,terminal
+  become: true
+  ansible.builtin.apt:
+    name: lf
+    state: present
+  when: ansible_distribution == "Debian"

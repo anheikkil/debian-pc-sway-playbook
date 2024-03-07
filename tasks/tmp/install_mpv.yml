@@ -1,0 +1,16 @@
+---
+- name: Install mpv and yt-dlp packages (Alpine Linux)
+  tags: install,media-player
+  become: true
+  community.general.apk:
+    name: mpv,yt-dlp
+    state: present
+  when: ansible_distribution == "Alpine"
+
+- name: Install mpv and yt-dlp packages (Debian, Pop!_OS)
+  tags: install,media-player
+  become: true
+  ansible.builtin.apt:
+    name: mpv,yt-dlp
+    state: present
+  when: ansible_distribution in ["Debian", "Pop!_OS"]

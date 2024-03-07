@@ -1,0 +1,46 @@
+---
+# List of official Alpine Linux mirrors: https://mirrors.alpinelinux.org/
+- name: Configure apk repositories (Alpine Linux)
+  tags: package-manager,repository
+  become: true
+  ansible.builtin.template:
+    src: templates/alpine/etc/apk/repositories.j2
+    dest: /etc/apk/repositories
+    backup: true
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_distribution == "Alpine"
+  vars:
+    mirror_server: "https://dl-cdn.alpinelinux.org/alpine"
+    release_branch: "v3.19"
+    apk_repositories: [main, community]
+
+- name: Configure apt sources (Debian)
+  tags: package-manager,repository
+  become: true
+  ansible.builtin.template:
+    src: templates/debian/etc/apt/sources.list.j2
+    dest: /etc/apt/sources.list
+    backup: true
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_distribution == "Debian"
+  vars:
+    apt_components:
+      bookworm: main contrib non-free non-free-firmware
+
+- name: Update package cache (Alpine Linux)
+  tags: package-manager
+  become: true
+  community.general.apk:
+    update_cache: true
+  when: ansible_distribution == "Alpine"
+
+- name: Update package cache (Debian)
+  tags: package-manager
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+  when: ansible_distribution == "Debian"

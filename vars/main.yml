@@ -1,0 +1,46 @@
+---
+# vars file for linux_pc_playbook
+extra_packages:
+  system:
+    - brtfs-compsize
+    - btrfs-tools
+    - cifs-utils # samba file sharing server and client
+    - colord
+    - network-manager-openvpn
+    - network-manager-pptp
+    - network-manager-ssh
+    - network-manager-strongswan
+    - unattended-upgrades
+  web_browsers:
+    - webext-browserpass
+  neomutt:
+    - isync
+    - msmtp
+    - notmuch
+    - spamassassin
+  thunar:
+    - thunar-archive-plugin
+    - thunar-gtkhask
+    - thunar-media-tags-plugin
+    - thunar-vcs-plugin
+  administrative_tools:
+    - fsarchiver
+    - nmap
+    - partclone
+    - rdfind
+    - rhash
+    - xxhash
+  office_tools:
+    - texinfo
+    - texlive
+    - texlive-latex-base
+  multimedia_tools:
+    - svt-av1
+    - faad
+    - picard
+    - vorbis-tools
+  qemu_host_packages:
+    - virt-viewer
+  development_tools:
+    - blender
+    - inkscape

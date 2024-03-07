@@ -1,0 +1,8 @@
+---
+- name: Install handbrake flatpak
+  become: true
+#  become: false
+  community.general.flatpak:
+    name: fr.handbrake.ghb
+    state: present
+#    method: user

@@ -1,0 +1,4 @@
+---
+# tasks file for ansible_role_flatpak
+- name: Set main variables
+  ansible.builtin.include_vars: "{{ playbook_dir }}/vars/main.yml"

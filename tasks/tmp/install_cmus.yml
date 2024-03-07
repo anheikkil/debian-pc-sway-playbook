@@ -1,0 +1,16 @@
+---
+- name: Install cmus and cmus ffmpeg plugin packages (Alpine)
+  tags: install,music-player
+  become: true
+  ansible.builtin.apt:
+    name: cmus,cmus-plugin-ffmpeg
+    state: present
+  when: ansible_distribution == "Alpine"
+
+- name: Install cmus and cmus ffmpeg plugin packages (Debian, Pop!_OS)
+  tags: install,music-player
+  become: true
+  ansible.builtin.apt:
+    name: cmus,cmus-plugin-ffmpeg
+    state: present
+  when: ansible_distribution in ["Debian", "Pop!_OS"]

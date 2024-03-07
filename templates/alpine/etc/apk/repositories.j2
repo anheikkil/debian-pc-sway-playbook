@@ -1,0 +1,7 @@
+# /etc/apk/repositories
+# Created by ansible on {{ template_run_date }}
+
+#/media/cdrom/apks
+{% for repository in apk_repositories %}
+{{ mirror_server }}/{{ release_branch }}/{{ repository }}
+{% endfor %}

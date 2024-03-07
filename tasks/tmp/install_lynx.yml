@@ -1,0 +1,16 @@
+---
+- name: Install lynx package (Alpine Linux)
+  tags: install,web-browser,terminal
+  become: true
+  community.general.apk:
+    name: lynx
+    state: present
+  when: ansible_distribution == "Alpine"
+
+- name: Install lynx package (Debian, Pop!_OS)
+  tags: install,web-browser,terminal
+  become: true
+  ansible.builtin.apt:
+    name: lynx
+    state: present
+  when: ansible_distribution in ["Debian", "Pop!_OS"]

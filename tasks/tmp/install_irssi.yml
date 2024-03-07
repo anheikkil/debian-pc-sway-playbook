@@ -1,0 +1,16 @@
+---
+- name: Install irssi and irssi xmpp plugin packages (Alpine)
+  tags: install,chat-client,terminal
+  become: true
+  ansible.builtin.apt:
+    name: irssi,irssi-xmpp
+    state: present
+  when: ansible_distribution == "Alpine"
+
+- name: Install irssi and irssi xmpp plugin packages (Debian, Pop!_OS)
+  tags: install,chat-client,terminal
+  become: true
+  ansible.builtin.apt:
+    name: irssi,irssi-plugin-xmpp
+    state: present
+  when: ansible_distribution in ["Debian", "Pop!_OS"]

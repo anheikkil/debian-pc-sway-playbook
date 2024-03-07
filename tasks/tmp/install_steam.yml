@@ -1,0 +1,8 @@
+---
+- name: Install steam and steamcmd packages (Debian, Pop!_OS)
+  tags: install,gaming
+  become: true
+  ansible.builtin.apt:
+    name: steam,steamcmd
+    state: present
+  when: ansible_distribution in ["Debian", "Pop!_OS"]
