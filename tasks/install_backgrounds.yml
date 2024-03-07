@@ -1,0 +1,6 @@
+---
+- name: Download background from https://unsplash.com/
+  ansible.builtin.get_url:
+    url: https://images.unsplash.com/photo-1705844996076-eaf8cfad3a16
+    dest: /usr/share/backgrounds/steve-busch-hwAvG_MME3Y-unsplash.jpg
+    mode: '0644'

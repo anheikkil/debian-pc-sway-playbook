@@ -388,6 +388,9 @@
 #          - minify
         state: present
 
+    - name: Install background images
+      ansible.builtin.import_tasks: tasks/install_backgrounds.yml
+
   post_tasks:
     - name: Remove unused package dependencies
       become: true
