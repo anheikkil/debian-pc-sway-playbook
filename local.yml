@@ -14,8 +14,8 @@
 #    - name: Configure locales
 #      ansible.builtin.import_tasks: tasks/configure_locales.yml
 
-#    - name: Configure package sources
-#      ansible.builtin.import_tasks: tasks/configure_package_sources.yml
+    - name: Configure package sources
+      ansible.builtin.import_tasks: tasks/configure_package_sources.yml
 
     - name: Update package cache
       become: true
