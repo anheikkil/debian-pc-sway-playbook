@@ -66,15 +66,15 @@
     - name: Install and configure flatpak
       ansible.builtin.import_tasks: tasks/install_flatpak.yml
 
-#     - name: Install display manager (lightdm) # seatd
-#       become: true
-#       ansible.builtin.apt:
-#         name:
-#           - lightdm
-#           - lightdm-settings
-#           - slick-greeter
-# #          - light-locker
-#         state: present
+    - name: Install display manager (lightdm) # seatd
+      become: true
+      ansible.builtin.apt:
+        name:
+          - lightdm
+          - lightdm-settings
+          - slick-greeter
+#          - light-locker
+        state: present
 
     - name: Install sway window manager
       become: true
