@@ -277,8 +277,8 @@
       ansible.builtin.apt:
         name:
           - gimp
-          - gimp-dds
-          - gimp-normalmap
+#          - gimp-dds
+#          - gimp-normalmap
           - graphicsmagick
           - graphicsmagick-imagemagick-compat
 #          - simple-scan
