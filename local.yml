@@ -198,12 +198,12 @@
           - urlscan
         state: present
 
-    - name: Install irc/xmpp client (irssi, irssi-xmpp)
+    - name: Install irc/xmpp client (irssi, irssi-plugin-xmpp)
       become: true
       ansible.builtin.apt:
         name: 
           - irssi
-          - irssi-xmpp # comment for testing with pop!_os
+          - irssi-plugin-xmpp # comment for testing with pop!_os
         state: present
 
     - name: Install bittorrent client (transmission)
