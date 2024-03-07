@@ -228,7 +228,7 @@
       ansible.builtin.apt:
         name:
           - adb
-          - avahi-ui-tools # comment for testing with pop!_os
+          - avahi-ui-utils # comment for testing with pop!_os
           - clamav
           - coreutils
           - curl
